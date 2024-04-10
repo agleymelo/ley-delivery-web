@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="border-t">
-      <div className="flex items-center justify-between mx-auto max-w-6xl h-16">
+      <div className="flex items-center justify-between mx-auto h-16 px-10">
         <span className="text-secondary-foreground">
           &copy; {new Date().getFullYear()} - Todos os direitos reservados
         </span>

@@ -1,16 +1,26 @@
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 type PaginationProps = {
   pageIndex: number;
   totalCount: number;
   perPage: number;
+  prevPage: number;
+  nextPage: number;
 };
 
 export function Pagination({
   pageIndex,
   totalCount,
   perPage,
+  prevPage,
+  nextPage,
 }: PaginationProps) {
   const pages = Math.ceil(totalCount / perPage) || 1;
 
@@ -26,22 +36,47 @@ export function Pagination({
         </div>
 
         <div className="flex items-center gap-2">
-        <Button variant="outline" className="h-8 w-8 p-0">
-            <ChevronsLeft className="h-4 w-4" />
-            <span className="sr-only">Primeira página</span>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            disabled={pageIndex === 0}
+          >
+            <Link href="?page=1">
+              <ChevronsLeft className="h-4 w-4" />
+              <span className="sr-only">Primeira página</span>
+            </Link>
           </Button>
-          <Button variant="outline" className="h-8 w-8 p-0">
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Página anterior</span>
-          </Button>
-          <Button variant="outline" className="h-8 w-8 p-0">
-            <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Próxima página</span>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            disabled={pageIndex === 0}
+          >
+            <Link href={`?page=${prevPage}`}>
+              <ChevronLeft className="h-4 w-4" />
+              <span className="sr-only">Página anterior</span>
+            </Link>
           </Button>
 
-          <Button variant="outline" className="h-8 w-8 p-0">
-            <ChevronsRight className="h-4 w-4" />
-            <span className="sr-only">Última página</span>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            disabled={pages < pageIndex}
+          >
+            <Link href={`?page=${nextPage}`}>
+              <ChevronRight className="h-4 w-4" />
+              <span className="sr-only">Próxima página</span>
+            </Link>
+          </Button>
+
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            disabled={pageIndex < pageIndex || pages === pageIndex + 1}
+          >
+            <Link href={`?page=${pages}`}>
+              <ChevronsRight className="h-4 w-4" />
+              <span className="sr-only">Última página</span>
+            </Link>
           </Button>
         </div>
       </div>

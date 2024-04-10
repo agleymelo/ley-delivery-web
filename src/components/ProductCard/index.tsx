@@ -1,3 +1,5 @@
+"use client"
+
 import Image, { type StaticImageData } from "next/image";
 import { Button } from "../ui/button";
 
@@ -15,12 +17,9 @@ export function ProductCard({
   image_url,
 }: ProductCardProps) {
   return (
-    <div className="rounded-sm border ">
-      <Image
-        src={image_url}
-        alt={title}
-        className="h-36 w-screen rounded-t-sm object-cover"
-      />
+    <div className="rounded-sm border">
+      <img src={image_url} alt={title}  className="h-36 w-screen rounded-t-sm object-cover cursor-pointer" />
+
       <div className="flex flex-col items-start justify-start gap-2 p-4">
         <h3 className="font-sans text-lg font-normal text-foreground/90">
           {title}
@@ -29,11 +28,14 @@ export function ProductCard({
           {description}
         </span>
       </div>
-      <div className="flex flex items-center justify-between p-4">
-        <span>Preço: {new Intl.NumberFormat("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        }).format(price)}</span>
+      <div className="flex items-center justify-between p-4">
+        <span>
+          Preço:{" "}
+          {new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(price / 100)}
+        </span>
 
         <div>
           <Button>Adicionar eu Carrinho</Button>

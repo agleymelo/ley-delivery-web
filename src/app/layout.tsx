@@ -5,6 +5,9 @@ import { Roboto as FontSans } from "next/font/google";
 import { cn } from "~/lib/utils";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
+import { Toaster } from "sonner";
+import { getProfile } from "./actions/get-profile";
+import { getCategories } from "./actions/get-categories";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -18,18 +21,26 @@ export const metadata = {
   // icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const getProfileData = await getProfile();
+  const categories = await getCategories()
+
   return (
     <html lang="en">
       <body
         className={cn("bg-background font-sans antialiased", fontSans.variable)}
       >
-        <div className="grid-rows-app grid min-h-screen">
-          <Header />
+        <Toaster richColors />
+        <div className="grid min-h-screen grid-rows-app">
+          <Header
+            user={getProfileData?.user}
+            isSigned={getProfileData?.signed}
+            categories={categories}
+          />
           {children}
           <Footer />
         </div>
