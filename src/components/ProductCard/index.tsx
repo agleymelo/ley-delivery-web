@@ -1,46 +1,65 @@
-"use client"
+"use client";
 
-import Image, { type StaticImageData } from "next/image";
+import { type StaticImageData } from "next/image";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { useCart } from "~/provider/cart-provider";
 
 type ProductCardProps = {
-  title: string;
+  id: string;
+  name: string;
   description: string;
   price: number;
   image_url: string | StaticImageData;
 };
 
 export function ProductCard({
-  title,
+  id,
+  name,
   description,
   price,
   image_url,
 }: ProductCardProps) {
+  const { addToCart } = useCart();
+
   return (
-    <div className="rounded-sm border">
-      <img src={image_url} alt={title}  className="h-36 w-screen rounded-t-sm object-cover cursor-pointer" />
+    <>
+      <div className="rounded-sm border">
+        <Link href={`/product/${id}`}>
+          <img
+            src={image_url}
+            alt={name}
+            className="h-36 w-screen cursor-pointer rounded-t-sm object-cover"
+          />
+        </Link>
 
-      <div className="flex flex-col items-start justify-start gap-2 p-4">
-        <h3 className="font-sans text-lg font-normal text-foreground/90">
-          {title}
-        </h3>
-        <span className="line-clamp-2 text-sm text-secondary-foreground/70">
-          {description}
-        </span>
-      </div>
-      <div className="flex items-center justify-between p-4">
-        <span>
-          Preço:{" "}
-          {new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(price / 100)}
-        </span>
+        <div className="flex flex-col items-start justify-start gap-2 p-4">
+          <h3 className="font-sans text-lg font-normal text-foreground/90">
+            {name}
+          </h3>
+          <span className="line-clamp-2 text-sm text-secondary-foreground/70">
+            {description}
+          </span>
+        </div>
+        <div className="flex items-center justify-between p-4">
+          <span>
+            Preço:{" "}
+            {new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }).format(price / 100)}
+          </span>
 
-        <div>
-          <Button>Adicionar eu Carrinho</Button>
+          <div>
+            <Button
+              type="button"
+              onClick={() => addToCart({ id, name, priceInCents: price })}
+            >
+              Adicionar eu Carrinho
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

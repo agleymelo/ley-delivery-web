@@ -1,3 +1,5 @@
+"use server";
+
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { api } from "~/lib/axios";
@@ -13,7 +15,9 @@ type GetProfileReply = {
   signed: boolean;
 };
 
-export async function getProfile(): Promise<GetProfileReply | null | undefined> {
+export async function getProfile(): Promise<
+  GetProfileReply | null | undefined
+> {
   const tokenCookies = cookies().get("@ley-delivery-web:token")?.value;
 
   if (!tokenCookies) {
@@ -40,8 +44,6 @@ export async function getProfile(): Promise<GetProfileReply | null | undefined> 
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
           console.log("Usuário não autenticado");
-
-          cookies().delete("@ley-delivery-web:token");
         }
       }
     }
@@ -56,6 +58,5 @@ export async function getProfile(): Promise<GetProfileReply | null | undefined> 
       role: "",
     },
     signed: false,
-  }
-  
+  };
 }

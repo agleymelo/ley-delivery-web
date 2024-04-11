@@ -1,18 +1,22 @@
+"use client";
+
 import { Hero } from "./hero";
+
 import { TopSellingProduct } from "./top-selling-products";
 
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  priceInCents: number;
+  images: string[];
+};
+
 type HomePageClientProps = {
-  products: Array<{
-    id: string;
-    name: string;
-    description: string;
-    priceInCents: number;
-    images: string[];
-  }> | undefined;
-}
+  products: Product[] | undefined;
+};
 
 export function HomePageClient({ products }: HomePageClientProps) {
-
   return (
     <div>
       <Hero />

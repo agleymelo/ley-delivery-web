@@ -8,7 +8,11 @@ type GetCategoriesReply = {
 };
 
 export async function getCategories() {
-  const response = await api.get<GetCategoriesReply>("/categories");
+  try {
+    const response = await api.get<GetCategoriesReply>("/categories");
 
-  return response.data.categories;
+    return response.data.categories;
+  } catch (error) {
+    console.error(error);
+  }
 }

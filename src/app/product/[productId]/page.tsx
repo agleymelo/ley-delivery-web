@@ -1,20 +1,39 @@
+import { api } from "~/lib/axios";
 import { ProductClient } from "./client/product-client";
 
-import productExample from '~/assets/product/product-example.jpg'
+type ShowProductReply = {
+  product: {
+    id: string;
+    name: string;
+    description: string;
+    priceInCents: number;
+    images: string[];
+  };
+};
+
+async function showProduct(productId: string) {
+  try {
+    const response = await api.get<ShowProductReply>(`/products/${productId}`);
+
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+}
 
 export default async function Page({
   params,
 }: {
   params: { productId: string };
 }) {
-  console.log(params);
+  const { product } = await showProduct(params.productId);
 
   return (
     <ProductClient
-      title="Cafe de chocolate com chantilly"
-      description="Cafe delicioso de 450ML com gosto de chocolate que acompanha chantilly"
-      price={19.9}
-      images={[productExample]}
+      title={product.name}
+      description={product.description}
+      price={product.priceInCents}
+      images={product.images}
     />
   );
 }

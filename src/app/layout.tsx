@@ -2,12 +2,12 @@ import "~/styles/globals.css";
 
 import { Roboto as FontSans } from "next/font/google";
 
-import { cn } from "~/lib/utils";
-import { Header } from "~/components/Header";
-import { Footer } from "~/components/Footer";
 import { Toaster } from "sonner";
+import { Footer } from "~/components/Footer";
+import { cn } from "~/lib/utils";
+import { GlobalStateProvider } from "~/provider/global-state";
+import { HeaderHome } from "./(home)/client/header";
 import { getProfile } from "./actions/get-profile";
-import { getCategories } from "./actions/get-categories";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,7 +27,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const getProfileData = await getProfile();
-  const categories = await getCategories()
+
+  const signed = getProfileData?.signed;
 
   return (
     <html lang="en">
@@ -36,13 +37,13 @@ export default async function RootLayout({
       >
         <Toaster richColors />
         <div className="grid min-h-screen grid-rows-app">
-          <Header
-            user={getProfileData?.user}
-            isSigned={getProfileData?.signed}
-            categories={categories}
-          />
-          {children}
-          <Footer />
+          <GlobalStateProvider>
+            <HeaderHome signed={signed} />
+
+            {children}
+
+            <Footer />
+          </GlobalStateProvider>
         </div>
       </body>
     </html>

@@ -3,12 +3,16 @@
 import { cookies } from "next/headers"
 import { api } from "~/lib/axios"
 
+type SignInAuthenticateReply = {
+  token: string
+}
+
 export async function signInAuthenticate(prevState: any, formData: FormData) {
   const email = formData.get("email")
   const password = formData.get("password")
 
   try {
-    const result = await api.post("/users/sessions", {
+    const result = await api.post<SignInAuthenticateReply>("/users/sessions", {
       email,
       password
     })

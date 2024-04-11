@@ -1,49 +1,40 @@
-"use client";
-
-import { Search, ShoppingBag, ShoppingCart } from "lucide-react";
+import { Search } from "lucide-react";
+import { NavItem } from "~/components/Header/nav-item";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { CartHeader } from "./cart-header";
+import { ProfileMenu } from "~/components/Header/profile-menu";
+import { Button } from "~/components/ui/button";
 import Link from "next/link";
+import { api } from "~/lib/axios";
 
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { NavItem } from "./nav-item";
-import { ProfileMenu } from "./profile-menu";
-import { Button } from "../ui/button";
-import { CartContext, useCart } from "~/provider/cart-provider";
-import { useContext } from "react";
-import { ActionHeaderMenu } from "~/app/(home)/client/cart-header";
-
-type HeaderProps = {
-  user:
-    | {
-        id: string;
-        name: string;
-        email: string;
-        phone: string;
-        role: string;
-      }
-    | undefined;
-  isSigned: boolean | undefined;
-  categories:
-    | Array<{
-        id: string;
-        name: string;
-      }>
-    | undefined;
+type GetCategoriesReply = {
+  categories: Array<{
+    id: string;
+    name: string;
+  }>;
 };
 
-export async function Header({
-  user: _user,
-  isSigned,
-  categories,
-}: HeaderProps) {
-  const signed = isSigned;
+export async function getCategories() {
+  try {
+    const response = await api.get<GetCategoriesReply>("/categories");
 
-  // const { cart } = useCart();
-  const { cart } = useContext(CartContext);
+    return response.data.categories;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+type HeaderHomeProps = {
+  signed: boolean | undefined;
+};
+
+export async function HeaderHome({ signed }: HeaderHomeProps) {
+  const categories = await getCategories();
 
   return (
     <div className="border-b">
-      <header className="mx-auto flex h-16  items-center gap-6 px-10">
+      <header className="mx-auto flex h-16 items-center gap-6 px-10">
         <span className="text-1xl font-medium ">Ley Delivery</span>
         <div>
           <nav className="flex items-center">
@@ -90,8 +81,7 @@ export async function Header({
               </Button>
             </>
           )}
-
-          <ActionHeaderMenu />
+          <CartHeader />
         </div>
       </header>
     </div>

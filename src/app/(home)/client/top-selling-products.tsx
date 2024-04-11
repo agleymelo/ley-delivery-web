@@ -1,4 +1,5 @@
-import productOne from "~/assets/banner/banner-1.jpg";
+"use client"
+
 import { ProductCard } from "~/components/ProductCard";
 
 type TopSellingProductProps = {
@@ -16,8 +17,6 @@ type TopSellingProductProps = {
 export function TopSellingProduct({ products }: TopSellingProductProps) {
   const nineProducts = products?.slice(0, 9);
 
-  console.log(nineProducts);
-
   return (
     <section className="mt-6">
       <h2 className="text-2xl font-bold tracking-tight">
@@ -29,7 +28,8 @@ export function TopSellingProduct({ products }: TopSellingProductProps) {
           return (
             <ProductCard
               key={product.id}
-              title={product.name}
+              id={product.id}
+              name={product.name}
               description={product.description}
               price={product.priceInCents}
               image_url={product.images[0]}

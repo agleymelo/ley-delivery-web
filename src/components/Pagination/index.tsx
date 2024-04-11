@@ -24,6 +24,7 @@ export function Pagination({
 }: PaginationProps) {
   const pages = Math.ceil(totalCount / perPage) || 1;
 
+
   return (
     <div className="flex items-center justify-between">
       <span className="text-sm text-muted-foreground">
@@ -60,7 +61,7 @@ export function Pagination({
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            disabled={pages < pageIndex}
+            disabled={pages < pageIndex || pages === pageIndex + 1}
           >
             <Link href={`?page=${nextPage}`}>
               <ChevronRight className="h-4 w-4" />

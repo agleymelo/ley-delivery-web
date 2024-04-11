@@ -21,10 +21,7 @@ export async function SignUp(prevState: any, formData: FormData) {
     return {
       message: "Usuário cadastrado com sucesso",
       redirect: redirectAfterCreatedUser,
-    }
-    
-
-
+    };
   } catch (err) {
     if (err instanceof AxiosError) {
       if (err.response?.status === 409) {
@@ -36,5 +33,4 @@ export async function SignUp(prevState: any, formData: FormData) {
 
     throw err;
   }
-
 }

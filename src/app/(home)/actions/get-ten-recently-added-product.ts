@@ -11,11 +11,15 @@ type GenTenRecentlyAddedProductReply = {
 };
 
 export async function genTenRecentlyAddedProduct() {
-  const response = await api.get<GenTenRecentlyAddedProductReply>("/products", {
-    params: {
-      pageIndex: 0,
-    },
-  });
-
-  return response.data.products;
+  try {
+    const response = await api.get<GenTenRecentlyAddedProductReply>("/products", {
+      params: {
+        pageIndex: 0,
+      },
+    });
+  
+    return response.data.products;
+  } catch (err) {
+    console.log(err);
+  }
 }

@@ -29,6 +29,22 @@ async function getProductByCategory(categoryId: string, pageIndex: number) {
   }
 }
 
+type GetCategoryReply = {
+  category: {
+    id: string;
+    name: string;
+  }
+};
+
+async function getCategory(categoryId: string) {
+  try {
+    const response = await api.get<GetCategoryReply>(`/categories/${categoryId}`);
+    return response.data.category;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 type PageProps = {
   params: {
     categoryId: string;
@@ -41,6 +57,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   page = !page || page < 1 ? 1 : page;
 
   const results = await getProductByCategory(params.categoryId, page - 1);
+  const category = await getCategory(params.categoryId)
 
   const prevPage = page - 1 > 0 ? page - 1 : 1;
   const nextPage = page + 1;
@@ -50,7 +67,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       <div className="mx-auto my-8 max-w-6xl gap-4">
         <div className="mt-8">
           <h1 className="font-sans text-3xl font-medium tracking-tight">
-            Produtos da categoria - Café
+            Produtos da categoria - {category?.name ?? "Carregando..."}
           </h1>
         </div>
 
@@ -59,7 +76,8 @@ export default async function Page({ params, searchParams }: PageProps) {
             return (
               <ProductCard
                 key={product.id}
-                title={product.name}
+                id={product.id}
+                name={product.name}
                 description={product.description}
                 price={product.priceInCents}
                 image_url={product.images[0]!}
