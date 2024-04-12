@@ -3,7 +3,7 @@
 import { type StaticImageData } from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { useCart } from "~/provider/cart-provider";
+import { useCart } from "~/providers/cart-provider";
 
 type ProductCardProps = {
   id: string;
@@ -53,7 +53,7 @@ export function ProductCard({
           <div>
             <Button
               type="button"
-              onClick={() => addToCart({ id, name, priceInCents: price })}
+              onClick={() => addToCart({ id, name, priceInCents: price, photo: String(image_url) })}
             >
               Adicionar eu Carrinho
             </Button>

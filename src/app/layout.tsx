@@ -5,9 +5,11 @@ import { Roboto as FontSans } from "next/font/google";
 import { Toaster } from "sonner";
 import { Footer } from "~/components/Footer";
 import { cn } from "~/lib/utils";
-import { GlobalStateProvider } from "~/provider/global-state";
 import { HeaderHome } from "./(home)/client/header";
 import { getProfile } from "./actions/get-profile";
+import { ThemeProvider } from "~/providers/theme-provider";
+import { CartProvider } from "~/providers/cart-provider";
+import { SessionProvider } from "~/providers/session-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -36,15 +38,25 @@ export default async function RootLayout({
         className={cn("bg-background font-sans antialiased", fontSans.variable)}
       >
         <Toaster richColors />
-        <div className="grid min-h-screen grid-rows-app">
-          <GlobalStateProvider>
-            <HeaderHome signed={signed} />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          key="@ley-delivery:theme"
+        >
+          <SessionProvider>
+            <div className="grid min-h-screen grid-rows-app">
+              <CartProvider>
+                <HeaderHome signed={signed} />
 
-            {children}
+                {children}
 
-            <Footer />
-          </GlobalStateProvider>
-        </div>
+                <Footer />
+              </CartProvider>
+            </div>
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

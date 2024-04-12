@@ -1,29 +1,31 @@
-"use client"
+"use client";
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
+import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { signInAuthenticate } from "./actions/action";
-import { useFormState } from "react-dom";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-
 
 const initialState = {
   success: "",
-  redirect: ""
-}
+  redirect: "",
+};
 
 export function SignInClient() {
-  const [state, formAction] = useFormState(signInAuthenticate, initialState)
-  const router = useRouter()
+  const [state, formAction] = useFormState(signInAuthenticate, initialState);
+  const router = useRouter();
 
-  if (state) {
-    if (!!state.success) {
-      toast.success(state.success)
-      router.push(state.redirect)
+  useEffect(() => {
+    if (state) {
+      if (state.success) {
+        toast.success(state.success);
+        router.push(state.redirect);
+      }
     }
-  }
+  }, [router, state]);
 
   return (
     <div className="p-8 ">

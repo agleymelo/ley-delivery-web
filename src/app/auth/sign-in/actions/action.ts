@@ -20,7 +20,7 @@ export async function signInAuthenticate(prevState: any, formData: FormData) {
     cookies().set("@ley-delivery-web:token", result.data.token, {
       maxAge: 60 * 60 * 24 * 7,
       path: "/",
-      httpOnly: true,
+      secure: true,
     })
 
     api.defaults.headers.Authorization = `Bearer ${result.data.token}`

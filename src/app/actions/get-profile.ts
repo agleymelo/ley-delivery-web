@@ -1,8 +1,9 @@
-"use server";
+// "use server";
 
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { api } from "~/lib/axios";
+import { logout } from "./logout";
 
 type GetProfileReply = {
   user: {
@@ -42,7 +43,7 @@ export async function getProfile(): Promise<
       };
     } catch (err) {
       if (err instanceof AxiosError) {
-        if (err.response?.status === 401) {
+        if (err.response?.status === 401 ) {
           console.log("Usuário não autenticado");
         }
       }

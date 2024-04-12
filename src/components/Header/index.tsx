@@ -1,16 +1,16 @@
 "use client";
 
-import { Search, ShoppingBag, ShoppingCart } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
 
+import { useContext } from "react";
+import { CartHeader } from "~/app/(home)/client/cart-header";
+import { CartContext } from "~/providers/cart-provider";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { NavItem } from "./nav-item";
 import { ProfileMenu } from "./profile-menu";
-import { Button } from "../ui/button";
-import { CartContext, useCart } from "~/provider/cart-provider";
-import { useContext } from "react";
-import { ActionHeaderMenu } from "~/app/(home)/client/cart-header";
 
 type HeaderProps = {
   user:
@@ -91,7 +91,7 @@ export async function Header({
             </>
           )}
 
-          <ActionHeaderMenu />
+          <CartHeader />
         </div>
       </header>
     </div>

@@ -1,21 +1,61 @@
-import { useState } from "react";
-import { Button } from "~/components/ui/button";
-import { Checkbox } from "~/components/ui/checkbox";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
-import { Separator } from "~/components/ui/separator";
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+"use client";
 
-export function CartDetail() {
-  const [paymentMethod, setPaymentMethod] = useState("credit-cart");
+import { useEffect, useState } from "react";
+import { useFormState } from "react-dom";
+import { toast } from "sonner";
+import { Button } from "~/components/ui/button";
+import { Separator } from "~/components/ui/separator";
+import { useCart } from "~/providers/cart-provider";
+import { createOrder, type CreateOrderState } from "../action/create-order";
+
+
+export function CartDetails() {
+  const { cart, clearCart } = useCart();
+
+  // const [paymentMethod, setPaymentMethod] = useState("credit-cart");
+  const [taxShippingDelivery] = useState(1290);
+
+  const total = cart.reduce(
+    (acc, item) => acc + item.totalInCents * item.quantity,
+    0,
+  );
+
+  const initialState: CreateOrderState = {
+    totalInCents: total,
+    orderItems: cart.map((item) => {
+      return {
+        id: item.id,
+        totalInCents: item.totalInCents,
+        quantity: item.quantity,
+      };
+    }),
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
+  const [state, formAction, isPending] = useFormState<any>(createOrder, initialState);
+
+
+  useEffect(() => {
+    if (state.message) {
+      toast.success(state.message);
+    }
+  }, [state.message])
+
+  if (state.success) {
+    clearCart();
+  }
+
 
   return (
     <div>
-      <div className="flex flex-col">
+      <form className="flex flex-col" action={formAction}>
         <div className="flex justify-between">
           <h1 className="font-sans text-2xl font-normal tracking-tight text-primary">
             Seu carrinho
           </h1>
-          <strong>3 Items</strong>
+          <strong>{cart.length ?? 0} Items</strong>
         </div>
 
         <Separator className="my-8 w-9/12 self-center" />
@@ -25,27 +65,42 @@ export function CartDetail() {
           <div className="flex flex-col gap-4">
             <div className="flex justify-between">
               <span className="text-base text-muted-foreground">Subtotal:</span>
-              <strong className="font-">R$ 129,90</strong>
+              <strong className="font-">
+                {(total / 100).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </strong>
             </div>
 
             <div className="flex justify-between">
               <span className="text-base text-muted-foreground">
                 Taxa de entrega:
               </span>
-              <strong className="font-">R$ 12,90</strong>
+              <strong className="font-">
+                {(taxShippingDelivery / 100).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </strong>
             </div>
 
             <Separator className="" />
 
             <div className="flex justify-between">
               <span className="text-lg text-muted-foreground">Total:</span>
-              <strong className="font-">R$ 142,80</strong>
+              <strong className="font-">
+                {((total + taxShippingDelivery) / 100).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </strong>
             </div>
           </div>
         </div>
 
         {/* Address */}
-        <div className="">
+        {/* <div className="">
           <div className="my-4 flex items-center gap-4">
             <div className="w-full ">
               <Label
@@ -100,10 +155,10 @@ export function CartDetail() {
               <Input id="number" type="text" placeholder="Ex: 10" />
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Payment */}
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <strong>Pagamento</strong>
 
           <div className="mt-4 rounded-sm border">
@@ -175,14 +230,14 @@ export function CartDetail() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         <Separator className="my-8 w-9/12 self-center" />
 
-        <Button className="w-full bg-rose-500 hover:bg-rose-600 dark:bg-rose-400 hover:dark:bg-rose-500">
+        <Button className="w-full text-primary-foreground dark:text-primary bg-rose-500 hover:bg-rose-600 dark:bg-rose-400 hover:dark:bg-rose-500" disabled={isPending}>
           Finalizar compra!
         </Button>
-      </div>
+      </form>
     </div>
   );
 }

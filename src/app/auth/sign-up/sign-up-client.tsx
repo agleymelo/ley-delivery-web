@@ -6,17 +6,21 @@ import { Label } from "~/components/ui/label";
 import { SignUp } from "./action";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 const initialState = {
   message: "",
 };
 export function SignUpClient() {
   const [state, formAction] = useFormState(SignUp, initialState);
-
-  if (state) {
-    toast.error(state.message);
-  }
   
+  useEffect(() => {
+    if (state) {
+      if (state.message) {
+        toast.success(state.message);
+      }
+    }
+  }, [state]);
 
   return (
     <div className="p-8">

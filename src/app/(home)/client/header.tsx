@@ -7,6 +7,7 @@ import { ProfileMenu } from "~/components/Header/profile-menu";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
 import { api } from "~/lib/axios";
+import { ToggleTheme } from "~/components/ui/toggle-theme";
 
 type GetCategoriesReply = {
   categories: Array<{
@@ -35,7 +36,9 @@ export async function HeaderHome({ signed }: HeaderHomeProps) {
   return (
     <div className="border-b">
       <header className="mx-auto flex h-16 items-center gap-6 px-10">
-        <span className="text-1xl font-medium ">Ley Delivery</span>
+        <Link href="/">
+          <span className="text-1xl font-medium ">Ley Delivery</span>
+        </Link>
         <div>
           <nav className="flex items-center">
             <ul className="flex-items flex gap-3">
@@ -65,7 +68,7 @@ export async function HeaderHome({ signed }: HeaderHomeProps) {
           </Label>
         </div>
 
-        <div className="ml-auto flex items-center">
+        <div className="ml-auto flex items-center gap-4">
           {signed && (
             <>
               <ProfileMenu />
@@ -81,6 +84,7 @@ export async function HeaderHome({ signed }: HeaderHomeProps) {
               </Button>
             </>
           )}
+          <ToggleTheme />
           <CartHeader />
         </div>
       </header>
