@@ -3,16 +3,17 @@
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { api } from "~/lib/axios";
-import { logout } from "./logout";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+};
 
 type GetProfileReply = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    role: string;
-  };
+  user: User | undefined;
   signed: boolean;
 };
 
@@ -31,19 +32,25 @@ export async function getProfile(): Promise<
     try {
       const result = await api.get<GetProfileReply>("/users/profile");
 
+      const { user } = result.data;
+
+      if (!user) {
+        return null;
+      }
+
       return {
         user: {
-          id: result.data.user.id,
-          name: result.data.user.name,
-          email: result.data.user.email,
-          phone: result.data.user.phone,
-          role: result.data.user.role,
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
         },
         signed: true,
       };
     } catch (err) {
       if (err instanceof AxiosError) {
-        if (err.response?.status === 401 ) {
+        if (err.response?.status === 401) {
           console.log("Usuário não autenticado");
         }
       }
@@ -51,13 +58,7 @@ export async function getProfile(): Promise<
   }
 
   return {
-    user: {
-      id: "",
-      name: "",
-      email: "",
-      phone: "",
-      role: "",
-    },
+    user: undefined,
     signed: false,
   };
 }

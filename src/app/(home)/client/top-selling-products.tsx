@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
 import { ProductCard } from "~/components/ProductCard";
 
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  priceInCents: number;
+  images: string[];
+};
+
 type TopSellingProductProps = {
-  products:
-    | Array<{
-        id: string;
-        name: string;
-        description: string;
-        priceInCents: number;
-        images: string[];
-      }>
-    | undefined;
+  products: Product[] | undefined;
 };
 
 export function TopSellingProduct({ products }: TopSellingProductProps) {

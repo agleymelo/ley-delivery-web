@@ -5,7 +5,7 @@ import { Roboto as FontSans } from "next/font/google";
 import { Toaster } from "sonner";
 import { Footer } from "~/components/Footer";
 import { cn } from "~/lib/utils";
-import { HeaderHome } from "./(home)/client/header";
+import { Header } from "../components/Header";
 import { getProfile } from "./actions/get-profile";
 import { ThemeProvider } from "~/providers/theme-provider";
 import { CartProvider } from "~/providers/cart-provider";
@@ -20,7 +20,6 @@ const fontSans = FontSans({
 export const metadata = {
   title: "Ley Delivery",
   description: "Ley Delivery",
-  // icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default async function RootLayout({
@@ -48,7 +47,7 @@ export default async function RootLayout({
           <SessionProvider>
             <div className="grid min-h-screen grid-rows-app">
               <CartProvider>
-                <HeaderHome signed={signed} />
+                <Header signed={signed} />
 
                 {children}
 

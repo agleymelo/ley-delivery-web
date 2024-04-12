@@ -1,6 +1,6 @@
 import { api } from "~/lib/axios";
 
-type GenTenRecentlyAddedProductReply = {
+type GetTenRecentlyAddedProductsReply = {
   products: Array<{
     id: string;
     name: string;
@@ -10,9 +10,9 @@ type GenTenRecentlyAddedProductReply = {
   }>;
 };
 
-export async function genTenRecentlyAddedProduct() {
+export async function genTenRecentlyAddedProducts() {
   try {
-    const response = await api.get<GenTenRecentlyAddedProductReply>("/products", {
+    const response = await api.get<GetTenRecentlyAddedProductsReply>("/products", {
       params: {
         pageIndex: 0,
       },
