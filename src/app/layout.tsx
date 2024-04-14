@@ -27,9 +27,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const getProfileData = await getProfile();
+  // const getProfileData = await getProfile();
 
-  const signed = getProfileData?.signed;
+  // const signed = getProfileData?.signed;
 
   return (
     <html lang="en">
@@ -45,13 +45,14 @@ export default async function RootLayout({
           key="@ley-delivery:theme"
         >
           <SessionProvider>
-            <div className="grid min-h-screen grid-rows-app">
+            <div className="min-h-screen"> 
+            {/* classname desktop grid min-h-screen grid-rows-app */}
               <CartProvider>
-                <Header signed={signed} />
+                <Header signed={false} />
 
-                {children}
+                {/* {children}
 
-                <Footer />
+                <Footer /> */}
               </CartProvider>
             </div>
           </SessionProvider>

@@ -1,6 +1,9 @@
 import { Coffee, ShoppingBag, Timer } from "lucide-react";
 import { BenefitItems } from "./benefit-item";
 
+import HeroImage from '~/assets/hero/hero-01.png'
+import Image from "next/image";
+
 export function Hero() {
   return (
     <section className="mx-auto mt-24 grid max-h-80 max-w-6xl grid-cols-2 gap-4">
@@ -30,7 +33,8 @@ export function Hero() {
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <Coffee className="h-64 w-64 origin-center rotate-6" />
+        <Image src={HeroImage} alt="" width={256} height={256} className="object-cover" />
+        {/* <Coffee className="h-64 w-64 origin-center rotate-6" /> */}
       </div>
     </section>
   );

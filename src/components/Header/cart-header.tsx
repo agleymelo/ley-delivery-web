@@ -2,13 +2,16 @@
 
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import { type ComponentProps } from "react";
 import { useCart } from "~/providers/cart-provider";
 
-export function CartHeader() {
+type CartHeaderProps = ComponentProps<"a">
+
+export function CartHeader({ ...props }: CartHeaderProps) {
   const { cart } = useCart();
 
   return (
-    <Link href="/cart" className="px-4 h-min outline-none">
+    <Link href="/cart" className="px-4 h-min outline-none" {...props}>
       <div className="relative cursor-pointer">
         <ShoppingCart />
 

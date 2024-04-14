@@ -14,7 +14,7 @@ export function ProfileMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="">
+        <Button variant="ghost" className="">
           <User className="h-6 w-6" />
           <span className="sr-only">Menu</span>
         </Button>
