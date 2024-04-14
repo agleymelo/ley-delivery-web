@@ -50,9 +50,9 @@ export default async function RootLayout({
               <CartProvider>
                 <Header signed={false} />
 
-                {/* {children}
+                {children}
 
-                <Footer /> */}
+                {/* <Footer /> */}
               </CartProvider>
             </div>
           </SessionProvider>

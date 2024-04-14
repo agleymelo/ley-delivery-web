@@ -1,5 +1,6 @@
 "use client";
 
+import { CarouselHome } from "./carousel-home";
 import { Hero } from "./hero";
 
 import { TopSellingProduct } from "./top-selling-products";
@@ -20,6 +21,7 @@ export function HomePageClient({ products }: HomePageClientProps) {
   return (
     <div>
       <Hero />
+      {/* <CarouselHome /> */}
 
       <main className="mx-auto my-8 max-w-6xl gap-4">
         <TopSellingProduct products={products} />

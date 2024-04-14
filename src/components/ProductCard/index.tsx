@@ -1,6 +1,6 @@
 "use client";
 
-import { type StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useCart } from "~/providers/cart-provider";
@@ -10,7 +10,7 @@ type ProductCardProps = {
   name: string;
   description: string;
   price: number;
-  image_url: string | StaticImageData;
+  image_url: string;
 };
 
 export function ProductCard({
@@ -26,10 +26,12 @@ export function ProductCard({
     <>
       <div className="rounded-sm border">
         <Link href={`/product/${id}`}>
-          <img
+          <Image
             src={image_url}
             alt={name}
-            className="h-36 w-screen cursor-pointer rounded-t-sm object-cover"
+            width={144}
+            height={144}
+            className="h-36 w-screen cursor-pointer rounded-t-sm object-cover object-center"
           />
         </Link>
 
@@ -41,9 +43,8 @@ export function ProductCard({
             {description}
           </span>
         </div>
-        <div className="flex items-center justify-between p-4">
-          <span>
-            Preço:{" "}
+        <div className="flex items-center gap-4  md:flex-row md:justify-between p-4">
+          <span className="text-base flex">
             {new Intl.NumberFormat("pt-BR", {
               style: "currency",
               currency: "BRL",
@@ -54,6 +55,7 @@ export function ProductCard({
             <Button
               type="button"
               onClick={() => addToCart({ id, name, priceInCents: price, photo: String(image_url) })}
+              className="bg-rose-600 hover:bg-rose-500 dark:bg-rose-400"
             >
               Adicionar eu Carrinho
             </Button>
