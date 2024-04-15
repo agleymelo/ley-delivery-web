@@ -116,9 +116,14 @@ export async function Header({ signed }: HeaderProps) {
               </>
             )}
             {!signed && (
-              <Button variant="link">
-                <Link href="/auth/sign-in">Entrar</Link>
-              </Button>
+              <>
+                <Button variant="link">
+                  <Link href="/auth/sign-in">Entrar</Link>
+                </Button>
+                <Button variant="link">
+                  <Link href="/auth/sign-up">Criar conta</Link>
+                </Button>
+              </>
             )}
             <ToggleTheme />
             <CartHeader />

@@ -31,9 +31,6 @@ export default async function Page({
 
   const product  = await showProduct(params.productId)
 
-  console.log(product)
-
-
   if (product === undefined) {
     return (
       <SkeletonProductId />
