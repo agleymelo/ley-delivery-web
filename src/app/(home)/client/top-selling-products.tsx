@@ -16,8 +16,8 @@ export function TopSellingProduct({ products }: TopSellingProductProps) {
   const nineProducts = products?.slice(0, 9);
 
   return (
-    <section className="mt-6 px-4">
-      <h2 className="text-center text-base font-bold tracking-tight md:text-2xl">
+    <section className="my-16 px-4">
+      <h2 className="text-center text-base font-bold tracking-tight md:text-2xl md:text-start">
         Produtos mais vendidos na semana
       </h2>
 
