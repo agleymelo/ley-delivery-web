@@ -1,16 +1,16 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
-import { Button } from "../ui/button";
+import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "~/providers/cart-provider";
+import { Button } from "../ui/button";
 
 type ProductCardProps = {
   id: string;
   name: string;
   description: string;
   price: number;
-  image_url: string;
+  image_url: string | undefined;
 };
 
 export function ProductCard({
@@ -27,7 +27,7 @@ export function ProductCard({
       <div className="rounded-sm border">
         <Link href={`/product/${id}`}>
           <Image
-            src={image_url}
+            src={image_url ?? "https://placehold.co/600x400"}
             alt={name}
             width={144}
             height={144}

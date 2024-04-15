@@ -52,7 +52,7 @@ export default async function RootLayout({
 
                 {children}
 
-                {/* <Footer /> */}
+                <Footer />
               </CartProvider>
             </div>
           </SessionProvider>

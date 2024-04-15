@@ -21,7 +21,7 @@ export function HomePageClient({ products }: HomePageClientProps) {
     <div>
       <CarouselHome />
 
-      <main className="mx-auto my-8 max-w-6xl gap-4">
+      <main className="mx-auto  max-w-6xl gap-4">
         <TopSellingProduct products={products} />
       </main>
     </div>
