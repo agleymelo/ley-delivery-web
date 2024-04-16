@@ -7,7 +7,11 @@ import { Separator } from "~/components/ui/separator";
 import { useCart } from "~/providers/cart-provider";
 import { CartDetails } from "./cart-details";
 
-export function CartPageClient() {
+type CartPageClientProps = {
+  signed: boolean
+}
+
+export function CartPageClient({ signed }: CartPageClientProps) {
   const { cart, incrementItemCart, decrementItemCart } = useCart();
 
   return (
@@ -64,7 +68,7 @@ export function CartPageClient() {
           <Separator className="my-4 w-2/3 self-center" />
         </div>
 
-        <CartDetails />
+        <CartDetails signed={signed} />
       </div>
     </>
   );

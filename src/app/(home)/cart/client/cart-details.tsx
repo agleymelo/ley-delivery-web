@@ -10,8 +10,11 @@ import { Separator } from "~/components/ui/separator";
 import { useCart } from "~/providers/cart-provider";
 import { createOrder, type CreateOrderState } from "../action/create-order";
 
+type CartDetailsProps = {
+  signed: boolean;
+};
 
-export function CartDetails() {
+export function CartDetails({ signed }: CartDetailsProps) {
   const { cart, clearCart } = useCart();
 
   // const [paymentMethod, setPaymentMethod] = useState("credit-cart");
@@ -31,22 +34,23 @@ export function CartDetails() {
         quantity: item.quantity,
       };
     }),
-  }
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-  const [state, formAction, isPending] = useFormState<any>(createOrder, initialState);
-
+  const [state, formAction, isPending] = useFormState<any>(
+    createOrder,
+    initialState,
+  );
 
   useEffect(() => {
     if (state.message) {
       toast.success(state.message);
     }
-  }, [state.message])
+  }, [state.message]);
 
   if (state.success) {
     clearCart();
   }
-
 
   return (
     <div>
@@ -234,8 +238,13 @@ export function CartDetails() {
 
         <Separator className="my-8 w-9/12 self-center" />
 
-        <Button className="w-full text-primary-foreground dark:text-primary bg-rose-500 hover:bg-rose-600 dark:bg-rose-400 hover:dark:bg-rose-500" disabled={isPending}>
-          Finalizar compra!
+        <Button
+          className="w-full bg-rose-500 text-primary-foreground hover:bg-rose-600 dark:bg-rose-400 dark:text-primary hover:dark:bg-rose-500"
+          disabled={isPending || !signed}
+        >
+          {
+            signed ? "Finalizar Pedido" : "Faça login para finalizar o pedido"
+          }
         </Button>
       </form>
     </div>
