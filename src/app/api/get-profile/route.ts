@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { NextResponse, type NextRequest } from "next/server";
 import { api } from "~/lib/axios";
 
@@ -11,10 +12,16 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response.data);
   } catch (err) {
-    headers.delete("authorization");
+    if (err instanceof AxiosError) {
+      headers.delete("authorization");
 
-    request.cookies.delete("@ley-delivery-web:token");
-    
-    return Response.json(err.response.data, { status: err.response.status })
+      request.cookies.delete("@ley-delivery-web:token");
+
+      return Response.json(err.response?.data, {
+        status: err.response?.status,
+      });
+    }
+
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }

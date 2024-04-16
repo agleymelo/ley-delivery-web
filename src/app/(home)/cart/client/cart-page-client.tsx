@@ -1,18 +1,18 @@
 "use client";
 
 import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import Image from "next/image";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
-import { CartDetails } from "./cart-details";
 import { useCart } from "~/providers/cart-provider";
+import { CartDetails } from "./cart-details";
 
 export function CartPageClient() {
   const { cart, incrementItemCart, decrementItemCart } = useCart();
 
   return (
     <>
-      <div className="mx-auto grid h-full w-full grid-cols-2 gap-4 px-10 py-4">
+      <div className="flex flex-col mx-4 md:mx-auto md:grid h-full md:w-full md:grid-cols-2 gap-4 md:px-10 py-4">
         <div className="flex flex-col">
           <h2 className="font-sans text-2xl font-normal tracking-tight text-primary">
             Order Summary
@@ -20,12 +20,14 @@ export function CartPageClient() {
 
           <Separator className="my-8 w-9/12 self-center" />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 ">
             {cart?.map((item) => (
-              <div key={item.id} className="flex gap-4">
-                <img
+              <div key={item.id} className="flex flex-col gap-4 md:gap-4 md:flex-row">
+                <Image
                   src={item.photo}
-                  alt=""
+                  alt={item.name}
+                  width={512}
+                  height={512}
                   className="rounded-md h-24 w-24 object-cover"
                 />
 
@@ -41,7 +43,7 @@ export function CartPageClient() {
                     })}
                   </span>
 
-                  <div className="mt-auto flex items-center gap-2">
+                  <div className="mt-4 md:mt-auto flex items-center gap-2">
                     <Button type="button" variant="ghost" className="p-2" onClick={() => decrementItemCart(item.id)}>
                       <Minus className="" />
                     </Button>

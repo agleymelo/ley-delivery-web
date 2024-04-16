@@ -6,7 +6,7 @@ type Product = {
   name: string;
   description: string;
   priceInCents: number;
-  images: string[];
+  image: string;
 };
 
 type TopSellingProductProps = {
@@ -36,7 +36,7 @@ export function TopSellingProduct({ products }: TopSellingProductProps) {
               name={product.name}
               description={product.description}
               price={product.priceInCents}
-              image_url={product.images[0]}
+              image_url={product.image}
             />
           );
         })}

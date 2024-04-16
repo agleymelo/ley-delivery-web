@@ -11,14 +11,14 @@ type ProductClientProps = {
   title: string;
   description: string;
   price: number;
-  images: string[];
+  image: string;
 };
 
 export function ProductClient({
   title,
   description,
   price,
-  images,
+  image,
 }: ProductClientProps) {
   const [amount, setAmount] = useState(1);
 
@@ -26,11 +26,11 @@ export function ProductClient({
     // className="mx-auto my-8 grid w-full max-w-6xl grid-cols-2 gap-8"
     <div className="flex flex-col p-4 my-8 h-full md:grid md:grid-cols-2 md:gap-8">
       <div>
-        <Image src={images[0]! ?? ["https://placehold.co/600x400"]} width={600} height={400} alt={title} className="object-cover" />
+        <Image src={image ?? ["https://placehold.co/600x400"]} width={600} height={400} alt={title} className="object-cover rounded-sm" />
       </div>
 
       <main className="flex flex-col gap-4">
-        <div >
+        <div className="mt-8">
           <h1 className="font-sans text-3xl tracking-tight">{title}</h1>
         </div>
 

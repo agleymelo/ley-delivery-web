@@ -9,7 +9,7 @@ type Product = {
   name: string;
   description: string;
   priceInCents: number;
-  images: string[];
+  image: string;
 };
 
 type HomePageClientProps = {

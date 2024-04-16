@@ -1,6 +1,3 @@
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
-import { Search } from "lucide-react";
-import { Button } from "~/components/ui/button";
 import { TableCell, TableRow } from "~/components/ui/table";
 
 import { formatDistanceToNow } from "date-fns";
@@ -10,7 +7,7 @@ import { OrderStatus } from "./order-status";
 type OrderTableRowProps = {
   order: {
     id: string;
-    status: 'pending' | 'processing' | 'delivering' | 'delivered' | 'cancelled';
+    status: "pending" | "processing" | "delivering" | "delivered" | "cancelled";
     totalInCents: number;
     created_at: string;
   };

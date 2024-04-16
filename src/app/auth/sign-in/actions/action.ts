@@ -7,7 +7,7 @@ type SignInAuthenticateReply = {
   token: string
 }
 
-export async function signInAuthenticate(prevState: any, formData: FormData) {
+export async function signInAuthenticate(prevState: unknown, formData: FormData) {
   const email = formData.get("email")
   const password = formData.get("password")
 

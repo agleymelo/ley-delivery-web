@@ -9,7 +9,6 @@ import { Header } from "../components/Header";
 import { getProfile } from "./actions/get-profile";
 import { ThemeProvider } from "~/providers/theme-provider";
 import { CartProvider } from "~/providers/cart-provider";
-import { SessionProvider } from "~/providers/session-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -44,17 +43,15 @@ export default async function RootLayout({
           disableTransitionOnChange
           key="@ley-delivery:theme"
         >
-          <SessionProvider>
-            <div className="min-h-screen"> 
-              <CartProvider>
-                <Header signed={signed} />
+          <div className="min-h-screen">
+            <CartProvider>
+              <Header signed={signed} />
 
-                {children}
+              {children}
 
-                <Footer />
-              </CartProvider>
-            </div>
-          </SessionProvider>
+              <Footer />
+            </CartProvider>
+          </div>
         </ThemeProvider>
       </body>
     </html>

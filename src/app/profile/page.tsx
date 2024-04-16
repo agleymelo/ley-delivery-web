@@ -16,7 +16,7 @@ type GetProfileReply = {
   signed: boolean;
 };
 
-export async function getProfile(): Promise<
+async function getProfile(): Promise<
   GetProfileReply | null | undefined
 > {
   const token = cookies().get("@ley-delivery-web:token")?.value;

@@ -6,7 +6,7 @@ type GetTenRecentlyAddedProductsReply = {
     name: string;
     description: string;
     priceInCents: number;
-    images: string[];
+    image: string;
   }>;
 };
 

@@ -9,7 +9,6 @@ import {
 } from "~/components/ui/table";
 import { api } from "~/lib/axios";
 import { OrderTableRow } from "./order-table-row";
-import { OrderTableFilters } from "./order-table-filters";
 
 type GetOrdersReply = {
   orders: Array<{

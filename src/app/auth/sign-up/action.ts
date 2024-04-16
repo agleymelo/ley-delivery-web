@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { redirect } from "next/navigation";
 import { api } from "~/lib/axios";
 
-export async function SignUp(prevState: any, formData: FormData) {
+export async function SignUp(prevState: unknown, formData: FormData) {
   const name = formData.get("name");
   const email = formData.get("email");
   const password = formData.get("password");

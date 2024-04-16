@@ -1,12 +1,13 @@
 import { SkeletonProductId } from "~/components/Skeleton/product-id/skeleton-product-id";
 import { api } from "~/lib/axios";
+import { ProductClient } from "./client/product-client";
 
 type Product = {
   id: string;
   name: string;
   description: string;
   priceInCents: number;
-  images: string[];
+  image: string;
 }
 
 type ShowProductReply = {
@@ -37,12 +38,12 @@ export default async function Page({
     )
   }
 
-  // return (
-  //   <ProductClient
-  //     title={product.name}
-  //     description={product.description}
-  //     price={product.priceInCents}
-  //     images={product.images}
-  //   />
-  // );
+  return (
+    <ProductClient
+      title={product.name}
+      description={product.description}
+      price={product.priceInCents}
+      image={product.image}
+    />
+  );
 }

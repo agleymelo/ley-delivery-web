@@ -7,7 +7,7 @@ await import("./src/env.js");
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    remotePatterns: [{ hostname: "images.unsplash.com" }, { hostname: "placehold.co" }]
+    remotePatterns: [{ hostname: "images.unsplash.com" }, { hostname: "placehold.co" }, { hostname: "*" }]
   }
 };
 
