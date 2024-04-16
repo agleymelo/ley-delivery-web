@@ -164,7 +164,7 @@ export function CartProvider({ children }: CartProviderProps) {
         removeFromCart,
         incrementItemCart,
         decrementItemCart,
-        clearCart
+        clearCart,
       }}
     >
       {children}
