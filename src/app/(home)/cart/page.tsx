@@ -55,7 +55,6 @@ async function getProfile(): Promise<
 export default async function page() {
   const profile = await getProfile()
 
-
   const signed = profile?.signed
 
   return <CartPageClient signed={signed ?? false} />

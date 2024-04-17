@@ -224,7 +224,7 @@ export function CartDetails({ signed }: CartDetailsProps) {
                 <Input id="card-date" type="text" placeholder="Ex: 12/24" />
               </div>
               <div className="w-full">
-                <Label
+                <Labe
                   htmlFor="card-cvv"
                   className="text-sm font-normal text-muted-foreground"
                 >
